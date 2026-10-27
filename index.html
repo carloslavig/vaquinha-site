@@ -48,9 +48,9 @@ ol{margin:0;padding-left:1.2rem}li{margin:6px 0}
 
   <section class="card qr">
     <h2>Contribua por Pix</h2>
-    <img src="qr.png" alt="QR Code Pix da vaquinha" onerror="this.style.display='none';document.getElementById('semqr').style.display='block'">
+    <img src="qr.png" alt="QR Code Pix da vaquinha" onload="document.getElementById('dica').style.display='block'" onerror="this.style.display='none';document.getElementById('semqr').style.display='block'">
     <small id="semqr" style="display:none">O QR Code estará disponível em instantes.</small>
-    <small>Aponte a câmera do app do seu banco para o QR Code.</small>
+    <small id="dica" style="display:none">Aponte a câmera do app do seu banco para o QR Code.</small>
   </section>
 
   <section class="card">
