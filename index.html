@@ -67,7 +67,7 @@ ol{margin:0;padding-left:1.2rem}li{margin:6px 0}
 <script>
 var brl=function(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})};
 function atualizar(){
-  fetch("https://raw.githubusercontent.com/carloslavig/vaquinha-site/main/total.json?t="+Math.floor(Date.now()/60000),{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){
+  fetch("https://raw.githubusercontent.com/carloslavig/vaquinha-site/master/total.json?t="+Math.floor(Date.now()/60000),{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){
     var meta=d.meta||6000,p=Math.min(100,Math.round((d.arrecadado||0)/meta*100));
     document.getElementById("valor").textContent=brl(d.arrecadado||0);
     document.getElementById("de").textContent="arrecadados de "+brl(meta);
