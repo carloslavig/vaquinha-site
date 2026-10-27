@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vaquinha para custear exames médicos</title>
+<meta name="description" content="Vaquinha para custear os exames médicos exigidos pelo Exército Brasileiro. Contribua por Pix e acompanhe o total arrecadado.">
+<meta property="og:title" content="Vaquinha para custear exames médicos">
+<meta property="og:description" content="Contribua por Pix e acompanhe o total arrecadado.">
+<meta name="theme-color" content="#14532d">
+<style>
+:root{--bg:#f6f4ee;--card:#fff;--ink:#1c1f1a;--mute:#5d6458;--accent:#166534;--track:#e4e1d6;--line:#dcd8ca}
+@media (prefers-color-scheme:dark){:root{--bg:#10140f;--card:#181d16;--ink:#eef0ea;--mute:#a3ab9c;--accent:#4ade80;--track:#27301f;--line:#2b3326}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:620px;margin:0 auto;padding:28px 16px 56px}
+h1{font-size:1.75rem;line-height:1.2;margin:0 0 8px}
+.sub{color:var(--mute);margin:0 0 24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+.valor{font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1.1}
+.de{color:var(--mute);margin:2px 0 14px}
+.barra{height:14px;background:var(--track);border-radius:99px;overflow:hidden}
+.barra>i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .8s ease}
+.pct{display:flex;justify-content:space-between;color:var(--mute);font-size:.9rem;margin-top:8px}
+h2{font-size:1.1rem;margin:0 0 10px}
+.qr{display:flex;flex-direction:column;align-items:center;gap:10px}
+.qr img{width:min(280px,80%);height:auto;border-radius:12px;background:#fff;padding:8px}
+.qr small{color:var(--mute);text-align:center}
+ol{margin:0;padding-left:1.2rem}li{margin:6px 0}
+.rodape{color:var(--mute);font-size:.9rem;text-align:center;margin-top:24px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Vaquinha para custear exames médicos</h1>
+  <p class="sub">Uma contribuição para seguir em frente com meu objetivo de ingressar no Exército Brasileiro.</p>
+
+  <section class="card" aria-live="polite">
+    <div class="valor" id="valor">R$ 0,00</div>
+    <div class="de" id="de">arrecadados de R$ 6.000,00</div>
+    <div class="barra" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="barra"><i id="fill"></i></div>
+    <div class="pct"><span id="pct">0%</span><span id="atu"></span></div>
+  </section>
+
+  <section class="card">
+    <p style="margin:0">Esta vaquinha tem o objetivo de arrecadar R$ 6.000 para custear os exames médicos exigidos pelo Exército Brasileiro. Qualquer contribuição pode ajudar nessa etapa, de acordo com as possibilidades de cada pessoa. O valor arrecadado é atualizado nesta página para que todos possam acompanhar o andamento da campanha.</p>
+  </section>
+
+  <section class="card qr">
+    <h2>Contribua por Pix</h2>
+    <img src="qr.png" alt="QR Code Pix da vaquinha" onerror="this.style.display='none';document.getElementById('semqr').style.display='block'">
+    <small id="semqr" style="display:none">O QR Code estará disponível em instantes.</small>
+    <small>Aponte a câmera do app do seu banco para o QR Code.</small>
+  </section>
+
+  <section class="card">
+    <h2>Como ajudar</h2>
+    <ol>
+      <li>Aponte a câmera do celular para o QR Code Pix disponível nesta página.</li>
+      <li>Escolha o valor que deseja contribuir, conforme suas possibilidades.</li>
+      <li>Confirme o pagamento e acompanhe o total arrecadado atualizado nesta página.</li>
+    </ol>
+  </section>
+
+  <p class="rodape">Agradeço sinceramente a cada pessoa que contribuir ou compartilhar esta vaquinha.<br>Todo o valor arrecadado será destinado ao custeio dos exames médicos exigidos pelo Exército Brasileiro.</p>
+</main>
+<script>
+var brl=function(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})};
+function atualizar(){
+  fetch("https://raw.githubusercontent.com/carloslavig/vaquinha-site/main/total.json?t="+Math.floor(Date.now()/60000),{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){
+    var meta=d.meta||6000,p=Math.min(100,Math.round((d.arrecadado||0)/meta*100));
+    document.getElementById("valor").textContent=brl(d.arrecadado||0);
+    document.getElementById("de").textContent="arrecadados de "+brl(meta);
+    document.getElementById("fill").style.width=p+"%";
+    document.getElementById("barra").setAttribute("aria-valuenow",p);
+    document.getElementById("pct").textContent=p+"% da meta";
+    if(d.atualizado){var t=new Date(d.atualizado);document.getElementById("atu").textContent="atualizado "+t.toLocaleDateString("pt-BR")+" "+t.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}
+  }).catch(function(){});
+}
+atualizar();setInterval(atualizar,60000);
+</script>
+</body>
+</html>
