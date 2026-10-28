@@ -62,8 +62,6 @@ function atualizar(){
     if(d.atualizado){var t=new Date(d.atualizado);document.getElementById("atu").textContent="atualizado "+t.toLocaleDateString("pt-BR")+" "+t.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}
   }).catch(function(){});
 }
-var PIX="00020126580014BR.GOV.BCB.PIX013687464c80-dc9c-4332-84f6-3824f2fd51bc5204000053039865802BR5921Janaina Santos Mendes6009SAO PAULO62140510j0wBtFdqV263045AB5";
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(PIX).then(ok,function(){m.textContent=PIX})}else{var t=document.createElement("textarea");t.value=PIX;document.body.appendChild(t);t.select();try{document.execCommand("copy");ok()}catch(e){m.textContent=PIX}t.remove()}};
 atualizar();setInterval(atualizar,60000);
 </script>
 </body>
