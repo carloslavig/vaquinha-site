@@ -47,12 +47,19 @@ ol{margin:0;padding-left:1.2rem}li{margin:6px 0}
     <p style="margin:0">A meta de R$ 6.000 para custear os exames médicos exigidos pelo Exército Brasileiro foi batida, e a vaquinha está encerrada. Agradeço a cada pessoa que contribuiu, compartilhou, torceu e ajudou de qualquer forma. Um agradecimento especial à Janaína, que cuidou de tudo. Esse apoio faz toda a diferença para eu seguir em frente com meu objetivo. Deus abençoe a todos!</p>
   </section>
 
+  <section class="card" id="esc" style="display:none">
+    <h2>🎉 Festa no escritório!</h2>
+    <p style="margin:0 0 10px">Os agentes de IA do escritório estão comemorando a meta batida (animação ilustrativa, no ar por 1 hora).</p>
+    <iframe src="escritorio.html" title="Escritório em festa" loading="lazy" style="width:100%;height:560px;border:0;border-radius:12px;background:#0b1220"></iframe>
+  </section>
+
   <p class="rodape">Vaquinha encerrada em 28/10/2026. Não é mais necessário enviar Pix.<br>Gratidão a todos os envolvidos.</p>
 </main>
 <script>
 var brl=function(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})};
 function atualizar(){
   fetch("https://raw.githubusercontent.com/carloslavig/vaquinha-site/master/total.json?t="+Math.floor(Date.now()/60000),{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){
+    document.getElementById("esc").style.display=(d.escritorio_ate&&Date.now()/1000<d.escritorio_ate)?"block":"none";
     var meta=d.meta||6000,p=Math.min(100,Math.round((d.arrecadado||0)/meta*100));
     document.getElementById("valor").textContent=brl(d.arrecadado||0);
     document.getElementById("de").textContent="arrecadados de "+brl(meta);
