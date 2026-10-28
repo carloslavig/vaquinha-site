@@ -66,14 +66,14 @@ function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return
 function ago(ts){if(!ts)return "dado não disponível";var s=Math.max(0,Date.now()/1000-ts);if(s<90)return "agora há pouco";if(s<3600)return "há "+Math.round(s/60)+" min";if(s<86400)return "há "+Math.round(s/3600)+" h";return "há "+Math.round(s/86400)+" d"}
 
 function demoSnap(){ // DADOS SIMULADOS (so com ?demo=1): estados rotativos para ver as animacoes
-  var PESOS=["ocioso","ocioso","ocioso","executando","ocioso","consultando","aguardando_autorizacao","ocioso","erro","desconectado","ocioso","planejando"];
+  var PESOS=["ocioso","ocioso","ocioso","executando","ocioso","consultando","aguardando_autorizacao","ocioso","ocioso","ocioso","ocioso","planejando"];
   var nomes=["Jarvis","Compasso","Sultão","Ilhéu","Alma","Forja","Ada","Cofre","Vaquinha","Garimpeiro","Correio","Cabo Tito"],ests=PESOS,k=Math.floor(Date.now()/30000),c=Math.floor(Date.now()/26000);
   return {ts:Date.now()/1000,simulado:true,total:nomes.length,agentes:nomes.map(function(n,i){var e=ests[(i*5+k)%ests.length];return{nome:n,exibir:n==="Alma"?"A.L.M.A.":n,especialidade:"(simulado)",estado:e,motivo:"simulado",ultima_atividade:Date.now()/1000-i*40,tarefa:"tarefa simulada",atividades:[],avisos:[]}}),
    conversa:[{id:c*10+1,ts:0,de:"Jarvis",para:"Alma",tipo:"pedido",texto:"(simulado) consulta sobre família"},{id:c*10+2,ts:0,de:"Alma",para:"Cabo Tito",tipo:"pedido",texto:"(simulado) envolve o Exército também"},{id:c*10+3,ts:0,de:"Cabo Tito",para:"Alma",tipo:"resposta",texto:"(simulado) tenho 3 fatos"},{id:c*10+4,ts:0,de:"Alma",para:"Jarvis",tipo:"resposta",texto:"(simulado) juntei 5 fatos"}],contagem:{},autonomia:{armada:false},servicos:[{nome:"Braniac",ok:true}],provedores:[],recursos:{},nota:"Modo demonstração: nada aqui é real."}}
 
 var chars={}, bolhas=[], ultimoMsg=null, lounge=null, deskPos={};
 function layout(){ // salas em grade 3x2 + area de lazer larga embaixo
-  var c=document.getElementById("c"),W=c.clientWidth,H=c.clientHeight,pad=14,top=54,cols=W<700?2:4,rows=W<700?4:2,lh=Math.max(120,H*.24),gh=H-top-lh-pad*(rows+2),rw=(W-pad*(cols+1))/cols,rh=gh/rows;
+  var c=document.getElementById("c"),W=c.clientWidth,H=c.clientHeight,pad=14,top=54,cols=W<700?2:4,rows=W<700?4:2,lh=Math.max(120,H*(festa()?.46:.24)),gh=H-top-lh-pad*(rows+2),rw=(W-pad*(cols+1))/cols,rh=gh/rows;
   var byName={};if(snap)snap.agentes.forEach(function(a){byName[a.nome]=a});
   var usados={};ROOMS.forEach(function(r){r.a.forEach(function(n){usados[n]=1})});
   var extras=snap?snap.agentes.filter(function(a){return!usados[a.nome]}):[];
@@ -258,7 +258,7 @@ function festaDecor(g,L,t,u,my){
   for(var i=0;i<3;i++){g.fillStyle="#60a5fa";g.fillRect(cx-8+i*8,my-43,2,8);g.fillStyle="#fbbf24";g.beginPath();g.arc(cx-7+i*8,my-46+Math.sin(t*9+i)*1.2,2.6,0,7);g.fill()}   // velas
   brilhos.push({x:cx,y:my-30,r:70,c:"#fbbf24",a:.2});
   for(var b=0;b<10;b++){var bx=L.x+L.w*(b+.5)/10,by=L.y+30+Math.sin(t*1.6+b)*5;g.strokeStyle="rgba(226,232,240,.5)";g.lineWidth=1;g.beginPath();g.moveTo(bx,by+10);g.lineTo(bx+Math.sin(b)*3,L.y+L.h*.5);g.stroke();g.fillStyle=cores[b%6];g.beginPath();g.ellipse(bx,by,8,10,0,0,7);g.fill()}   // baloes
-  g.fillStyle="#fde68a";g.font="bold 14px system-ui";g.textAlign="center";g.fillText("🎉 META BATIDA! 🎉",cx,L.y+22);g.textAlign="left";
+  g.fillStyle="#fde68a";g.font="bold 14px system-ui";g.textAlign="center";g.fillText("🎉 META BATIDA! 🎉",L.x+L.w*.8,L.y+24);g.textAlign="left";
   if(Math.random()<.5)particulas.push({x:L.x+Math.random()*L.w,y:L.y+4,vy:.8+Math.random()*1.2,l:2.2,c:cores[Math.floor(Math.random()*6)]})}
 function bolha(g,b,t){
   var ch=chars[b.de],dest=chars[b.para];if(!ch)return;var idade=(Date.now()-b.t)/1000;if(idade<0||idade>8)return;
