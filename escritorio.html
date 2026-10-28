@@ -32,7 +32,7 @@ h3{margin:14px 0 6px;font-size:11px;letter-spacing:.12em;color:var(--mu);text-tr
 #det p{margin:4px 0}.nd{color:var(--mu);font-style:italic}
 .conv{font-size:12px;color:var(--mu)}.conv b{color:var(--tx)}
 </style>
-</head>
+<style>aside{display:none!important}#app{display:block!important}#stage{height:100vh!important}</style></head>
 <body>
 <div id="app">
   <div id="stage">
@@ -73,7 +73,7 @@ function demoSnap(){ // DADOS SIMULADOS (so com ?demo=1): estados rotativos para
 
 var chars={}, bolhas=[], ultimoMsg=null, lounge=null, deskPos={};
 function layout(){ // salas em grade 3x2 + area de lazer larga embaixo
-  var c=document.getElementById("c"),W=c.clientWidth,H=c.clientHeight,pad=14,top=54,cols=W<700?2:4,rows=W<700?4:2,lh=Math.max(120,H*(festa()?.46:.24)),gh=H-top-lh-pad*(rows+2),rw=(W-pad*(cols+1))/cols,rh=gh/rows;
+  var c=document.getElementById("c"),W=c.clientWidth,H=c.clientHeight,pad=14,top=54,cols=4,rows=2,lh=Math.max(120,H*.58),gh=H-top-lh-pad*(rows+2),rw=(W-pad*(cols+1))/cols,rh=gh/rows;
   var byName={};if(snap)snap.agentes.forEach(function(a){byName[a.nome]=a});
   var usados={};ROOMS.forEach(function(r){r.a.forEach(function(n){usados[n]=1})});
   var extras=snap?snap.agentes.filter(function(a){return!usados[a.nome]}):[];
